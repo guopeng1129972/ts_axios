@@ -58,3 +58,18 @@ let someValue: any = 'this is a string'
 let someValueLen: number = (someValue as string).length
 // 2.使用强制转换类型来做
 let someValueLen1: number = (<string>someValue).length
+
+let first = [1, 2]
+let second = [3, 4]
+let bothPlus = [0, ...first, ...second, 5]
+console.log(bothPlus) //[0,1,2,3,4,5] 浅拷贝过程
+
+let defaults = {
+  food: 'noods',
+  price: '$12',
+  ambiance: 'noisy',
+}
+let search = { ...defaults, food: 'rich' }
+let search2 = { food: 'rich', ...defaults }
+console.log(search) //{ food: 'rich', price: '$12', ambiance: 'noisy' }
+console.log(search2) // { food: 'noods', price: '$12', ambiance: 'noisy' } //被写回去了
