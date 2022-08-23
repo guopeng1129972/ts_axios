@@ -81,4 +81,31 @@ var defaults = {
 var search = __assign(__assign({}, defaults), { food: 'rich' });
 var search2 = __assign({ food: 'rich' }, defaults);
 console.log(search); //{ food: 'rich', price: '$12', ambiance: 'noisy' }
-console.log(search2); //
+console.log(search2); // { food: 'noods', price: '$12', ambiance: 'noisy' } //被写回去了
+function createSquare(config) {
+    var newSquare = { color: 'red', area: 100 };
+    if (config.color) {
+        newSquare.color = config.color;
+    }
+    if (config.width) {
+        newSquare.area = config.width * config.width;
+    }
+    return newSquare;
+}
+var mySquare = createSquare({ color: 'black', width: 1000 });
+console.log(mySquare);
+console.warn('只读属性');
+var p1 = { x: 10, y: 3 };
+// p1.x = 2 // 报错 不能修改
+var a = [1, 2, 3, 4, 5];
+var ro = a;
+var mySearch;
+mySearch = function (str, sub) {
+    var result = str.search(sub);
+    return result > -1;
+};
+console.warn('可索引的类型');
+var myArray;
+myArray = ['bob', 'coc', 'dod'];
+var myStr = myArray[0];
+console.log('myStr', myStr);

@@ -19,17 +19,163 @@ const
 不能重新赋值 可以修改值
 
 # 3-7 变量声明 - 解构
+
 ## 数组结构
+
 函数参数解构
 剩余元素结构
-```js
-let [first,...rest]=[1,2,3,4,5]
-console.log(first) //1
-console.log(rest)//剩余内容
-```
-## 对象结构
-尽量不要嵌套太多的结构 太复杂不容易理解
-# 3-8 变量声明 - 展开
-```js
 
+```js
+let [first, ...rest] = [1, 2, 3, 4, 5]
+console.log(first) //1
+console.log(rest) //剩余内容
 ```
+
+## 对象结构
+
+尽量不要嵌套太多的结构 太复杂不容易理解
+
+# 3-8 变量声明 - 展开
+
+```js
+let first = [1, 2]
+let second = [3, 4]
+let bothPlus = [0, ...first, ...second, 5]
+console.log(bothPlus) //[0,1,2,3,4,5] 浅拷贝过程
+
+let defaults = {
+  food: 'noods',
+  price: '$12',
+  ambiance: 'noisy',
+}
+let search = { ...defaults, food: 'rich' }
+let search2 = { food: 'rich', ...defaults }
+console.log(search) //{ food: 'rich', price: '$12', ambiance: 'noisy' }
+console.log(search2) // { food: 'noods', price: '$12', ambiance: 'noisy' } //被写回去了
+```
+
+# 3-9 接口 - 接口初探
+
+## 固定属性
+
+```js
+// 指定接口的类型，需要包含一个类型的值
+interface Man {
+  name: string;
+}
+```
+
+# 3-10 接口 - 可选属性+只读属性
+
+```js
+// 可选属性
+interface Square {
+  color: string
+  area: number
+}
+
+interface SquareConfig {
+  color?: string
+  width?: number
+}
+function createSquare(config: SquareConfig): Square {
+  let newSquare = { color: 'red', area: 100 }
+  if (config.color) {
+    newSquare.color = config.color
+  }
+  if (config.width) {
+    newSquare.area = config.width * config.width
+  }
+  return newSquare
+}
+
+let mySquare = createSquare({ color: 'black', width: 1000 })
+console.log(mySquare)
+// 只读属性
+interface Point {
+  readonly x: number
+  readonly y: number
+}
+
+let p1: Point = { x: 10, y: 3 }
+// p1.x = 2 // 报错 不能修改
+
+let a: number[] = [1, 2, 3, 4, 5]
+let ro: ReadonlyArray<number> = a
+// ro[0] = 1 //内置的ReadonlyArray属性 不允许修改
+```
+
+# 3-11 接口 - 额外属性检查+函数类型+可索引的类型
+
+## 额外属性检查
+
+## 函数类型
+
+```js
+let a: number[] = [1, 2, 3, 4, 5]
+let ro: ReadonlyArray<number> = a
+// ro[0] = 1 //内置的ReadonlyArray属性 不允许修改
+
+interface SearchFunc {
+  //定义一个函数接口 参数类型为string string 返回值为boolean
+  (source: string, subString: string): boolean;
+}
+
+let mySearch: SearchFunc
+mySearch = function (str, sub) {
+  let result = str.search(sub)
+  return result > -1
+}
+```
+
+## 可索引的类型
+
+```js
+interface StringArray {
+  [index: number]: string;
+}
+
+let myArray: StringArray
+myArray = ['bob', 'coc', 'dod']
+let myStr: string = myArray[0]
+console.log('myStr', myStr) //myStr bob
+```
+
+可索引的类型的接口 返回值必须和设计的一样
+
+### 只读的可索引的类型
+
+```js
+interface ReadonlyStingArray {
+  readonly [index:number]:string
+}
+let myArray:ReadonlyStingArray=['aa','bb']
+
+myArray[1]='cc' //tsc会报错 编译不通过
+```
+
+# 3-12 接口 -类类型+继承接口+混合类型+接口继承类
+
+## 类类型
+
+3.12/index.ts
+
+### 静态接口类型
+
+3.12/index1.ts
+
+### 实例接口类型
+
+3.12/index2.ts
+
+### 继承接口
+
+3.12/index3.ts
+
+### 混合类型
+
+3.12/4.ts
+
+### 接口继承类
+
+3.12/5.ts

@@ -73,3 +73,61 @@ let search = { ...defaults, food: 'rich' }
 let search2 = { food: 'rich', ...defaults }
 console.log(search) //{ food: 'rich', price: '$12', ambiance: 'noisy' }
 console.log(search2) // { food: 'noods', price: '$12', ambiance: 'noisy' } //被写回去了
+
+// 可选属性
+interface Square {
+  color: string
+  area: number
+}
+
+interface SquareConfig {
+  color?: string
+  width?: number
+}
+function createSquare(config: SquareConfig): Square {
+  let newSquare = { color: 'red', area: 100 }
+  if (config.color) {
+    newSquare.color = config.color
+  }
+  if (config.width) {
+    newSquare.area = config.width * config.width
+  }
+  return newSquare
+}
+
+let mySquare = createSquare({ color: 'black', width: 1000 })
+console.log(mySquare)
+
+console.warn('只读属性')
+interface Point {
+  readonly x: number
+  readonly y: number
+}
+
+let p1: Point = { x: 10, y: 3 }
+// p1.x = 2 // 报错 不能修改
+
+let a: number[] = [1, 2, 3, 4, 5]
+let ro: ReadonlyArray<number> = a
+// ro[0] = 1 //内置的ReadonlyArray属性 不允许修改
+
+interface SearchFunc {
+  //定义一个函数接口 参数类型为string string 返回值为boolean
+  (source: string, subString: string): boolean
+}
+
+let mySearch: SearchFunc
+mySearch = function (str, sub) {
+  let result = str.search(sub)
+  return result > -1
+}
+
+console.warn('可索引的类型')
+interface StringArray {
+  [index: number]: string
+}
+
+let myArray: StringArray
+myArray = ['bob', 'coc', 'dod']
+let myStr: string = myArray[0]
+console.log('myStr', myStr) //myStr bob
