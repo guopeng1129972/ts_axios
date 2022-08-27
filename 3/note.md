@@ -201,3 +201,35 @@ myArray[1]='cc' //tsc会报错 编译不通过
 ## readonly 属性 定义只读属性 3.14/4.ts
 
 ## 参数属性 就是给参数设定属性的定义方式 3.14/5.ts
+
+# 3-15 类 - 存取器+ 静态属性
+
+## 存取器
+
+tsc 1.ts --target es5
+
+```js
+// 原理是通过es5的 defineProperty 的get set 实现代理
+Object.defineProperty(Employee.prototype, 'fullName', {
+  get: function () {
+    console.log('get')
+    return this._follNmae
+  },
+  set: function (newName) {
+    if (newName && newName === '1111') {
+      this._follNmae = newName
+    } else {
+      console.log('Error: Unauthorized update of employee!')
+    }
+  },
+  enumerable: true,
+  configurable: true,
+})
+return Employee
+```
+
+## 静态属性
+通过 static关键字设置
+  static origin = { x: 0, y: 0 } //类的静态属性
+通过在对象上访问静态属性去引用
+  let xDist = point.x - Grid.origin.x //访问类的静态属性
