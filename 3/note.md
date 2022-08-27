@@ -229,7 +229,25 @@ return Employee
 ```
 
 ## 静态属性
-通过 static关键字设置
-  static origin = { x: 0, y: 0 } //类的静态属性
+
+通过 static 关键字设置
+static origin = { x: 0, y: 0 } //类的静态属性
 通过在对象上访问静态属性去引用
-  let xDist = point.x - Grid.origin.x //访问类的静态属性
+let xDist = point.x - Grid.origin.x //访问类的静态属性
+
+# 3-16 类 - 抽象类+ 高级技巧
+
+## 抽象类 抽象方法 3.16/1.ts 3.16/2.ts
+
+1. `抽象类`通常被用于派生类的基类实现，通常不会被实例化 关键字 abstract
+2. `抽象方法`不能直接实现，通常会在派生类中去实现 关键字 abstract
+
+## 类类型 3.16/3.ts
+
+// typeof Greeter 取一个 Greeter 的类型，而不是实例一个
+// greeterMaker.greet=(){return 3}
+//类型“typeof Greeter”上不存在属性“greet” 同理 typeof Greeter 只能改变 Greeter 的静态方法
+
+## 类作为接口使用 3.16/4.ts
+
+可以用 class 替代 interface 实现 ts 是允许这样做的，但是不建议
