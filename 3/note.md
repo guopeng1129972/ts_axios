@@ -255,3 +255,21 @@ let xDist = point.x - Grid.origin.x //访问类的静态属性
 # 3-17 函数 - 基本示例+ 函数类型
 
 存在简写的情况 1.函数定义的简写 2.函数参数的简写
+
+# 3-18 函数 - 可选参数和默认参数
+
+```js
+// 1. 可选参数
+function buildeName(firstName?: string, lastName?: string): string {
+  return firstName + ' ' + lastName
+}
+// 2. 默认参数
+function buildeName(firstName = '默认值', lastName = '默认值'): string {
+  return firstName + ' ' + lastName
+}
+// 3. 不限制值参数
+function buildeName(firstName = '默认值', ...otherName: string[]): string {
+  return firstName + ' ' + lastName
+}
+let buildeNameFn: (firstName: string, ...otherName: string[]) => string = buildeName
+```
