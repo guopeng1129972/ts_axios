@@ -273,3 +273,21 @@ function buildeName(firstName = '默认值', ...otherName: string[]): string {
 }
 let buildeNameFn: (firstName: string, ...otherName: string[]) => string = buildeName
 ```
+
+# 3-19 函数 - this+ 重载
+
+## 箭头函数的 this 指向创建的时候的地方，如果没有继续向上找
+
+## 3.ts 如何访问 this
+
+## 4.ts 可以通过箭头函数代替 要使用 this 的情况
+
+```ts
+// onClickBad(this: Hander, e: Event) {
+// 使用箭头函数避免使用this拿不到
+onClickBad = (e: Event) => {
+  this.type = e.type
+}
+```
+
+## 函数重载的函数参数都会发生变换，比如同样一个函数，接受数字返回对象，接受对象返回数字，重载两次，就会做正确的类型判断
